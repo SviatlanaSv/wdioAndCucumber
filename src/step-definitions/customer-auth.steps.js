@@ -1,4 +1,4 @@
-// require('dotenv').config();
+require('dotenv').config();
 const { Given, When, Then } = require('@wdio/cucumber-framework');
 const Login    = require('../pageobjects/login.page');
 const Register = require('../pageobjects/register.page');
