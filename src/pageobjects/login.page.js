@@ -1,41 +1,20 @@
-const { $ } = require('@wdio/globals')
-const Page = require('./page');
+const BasePage = require('./base.page');
+class LoginPage extends BasePage {
+  get form()      { return $('[data-test="login-form"]'); }
+  get email()     { return $('[data-test="email"]'); }
+  get password()  { return $('app-password-input#password input, app-password-input[formcontrolname="password"] input, input[type="password"]'); }
+  get submit()    { return $('[data-test="login-submit"]'); }
+  get register()  { return $('[data-test="register-link"]'); }
+  get error()     { return $('[data-test="login-error"]'); }
 
-/**
- * sub page containing specific selectors and methods for a specific page
- */
-class LoginPage extends Page {
-    /**
-     * define selectors using getter methods
-     */
-    get inputUsername () {
-        return $('#username');
-    }
-
-    get inputPassword () {
-        return $('#password');
-    }
-
-    get btnSubmit () {
-        return $('button[type="submit"]');
-    }
-
-    /**
-     * a method to encapsule automation code to interact with the page
-     * e.g. to login using username and password
-     */
-    async login (username, password) {
-        await this.inputUsername.setValue(username);
-        await this.inputPassword.setValue(password);
-        await this.btnSubmit.click();
-    }
-
-    /**
-     * overwrite specific options to adapt it to page object
-     */
-    open () {
-        return super.open('login');
-    }
+  async open () {
+    await super.open('/auth/login');
+    await this.form.waitForExist({ timeout: 10000 });
+  }
+  async goToRegister () {
+    await this.register.waitForClickable({ timeout: 10000 });
+    await this.register.click();
+  }
 }
 
 module.exports = new LoginPage();

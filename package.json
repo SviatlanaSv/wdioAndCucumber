@@ -2,21 +2,17 @@
   "name": "wdioandcucumber",
   "version": "1.0.0",
   "main": "index.js",
-"scripts": {
-  "gecko": "geckodriver -p 4444 -vv",
-
-  "prewdio:all": "wait-on tcp:127.0.0.1:4444",
-  "wdio:all": "cross-env HEADLESS=true wdio run ./wdio.conf.js",
-
-  "prewdio:ff": "wait-on tcp:127.0.0.1:4444",
-  "wdio:ff": "cross-env HEADLESS=true wdio run ./wdio.conf.js -- firefox",
-
-  "test:all": "concurrently -k -s first \"npm:gecko\" \"npm:wdio:all\"",
-  "test:firefox": "concurrently -k -s first \"npm:gecko\" \"npm:wdio:ff\"",
-
-  "test:chrome": "cross-env HEADLESS=true wdio run ./wdio.conf.js -- chrome",
-  "test:edge":   "cross-env HEADLESS=true wdio run ./wdio.conf.js -- edge"
-},
+  "scripts": {
+    "gecko": "geckodriver -p 4444 -vv",
+    "prewdio:all": "wait-on tcp:127.0.0.1:4444",
+    "wdio:all": "cross-env HEADLESS=true wdio run ./wdio.conf.js",
+    "prewdio:ff": "wait-on tcp:127.0.0.1:4444",
+    "wdio:ff": "cross-env HEADLESS=true wdio run ./wdio.conf.js -- firefox",
+    "test:all": "concurrently -k -s first \"npm:gecko\" \"npm:wdio:all\"",
+    "test:firefox": "concurrently -k -s first \"npm:gecko\" \"npm:wdio:ff\"",
+    "test:chrome": "cross-env HEADLESS=true wdio run ./wdio.conf.js -- chrome",
+    "test:edge": "cross-env HEADLESS=true wdio run ./wdio.conf.js -- edge"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -28,6 +24,7 @@
     "@wdio/spec-reporter": "^9.19.2",
     "concurrently": "^9.2.1",
     "cross-env": "^10.0.0",
+    "dotenv": "^17.2.2",
     "geckodriver": "^6.0.1",
     "wait-on": "^8.0.4",
     "webdriverio": "^9.19.2"

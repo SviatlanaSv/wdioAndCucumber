@@ -1,3 +1,4 @@
+require('dotenv').config();
 const HEADLESS = process.env.HEADLESS === 'true';
 
 const cliBrowser = process.argv.map(a => a.toLowerCase())
@@ -42,9 +43,11 @@ exports.config = {
     // The path of the spec files will be resolved relative from the directory of
     // of the config file unless it's absolute.
     //
-    specs: [
-        './src/features/**/*.feature'
-    ],
+    // specs: [
+    //     './src/features/**/*.feature'
+    // ],
+    specs: ['./src/features/**/*.feature'], //./src/features/**/*.feature
+    // './src/features/add-to-basket.feature'
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
@@ -113,7 +116,7 @@ exports.config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    // baseUrl: 'http://localhost:8080',
+    baseUrl: 'https://practicesoftwaretesting.com',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -157,7 +160,7 @@ exports.config = {
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
         // <string[]> (file/dir) require files before executing features
-        require: ['./src/step-definitions/**/*.js'],
+        require: ['./src/step-definitions/**/*.js'], 
         // <boolean> show full backtrace for errors
         backtrace: false,
         // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
@@ -173,7 +176,7 @@ exports.config = {
         // <boolean> hide source uris
         source: true,
         // <boolean> fail if there are any undefined or pending steps
-        strict: false,
+       strict: true,
         // <string> (expression) only execute the features or scenarios with tags matching the expression
         tagExpression: '',
         // <number> timeout for step definitions
