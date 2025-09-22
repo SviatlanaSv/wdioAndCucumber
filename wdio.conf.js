@@ -13,9 +13,6 @@ const allCaps = [
     'ms:edgeOptions':     { args: HEADLESS ? ['--headless=new'] : [] } },
 
   { browserName: 'firefox',
-    hostname: '127.0.0.1',
-    port: 4444,
-    path: '/',
     'moz:firefoxOptions': { args: HEADLESS ? ['-headless'] : [] } }
 ];
 
