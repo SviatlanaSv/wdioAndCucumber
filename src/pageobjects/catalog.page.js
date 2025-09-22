@@ -1,14 +1,25 @@
-const BasePage = require('./base.page');
+const BasePage = require("./base.page");
 
 class CatalogPage extends BasePage {
-  get filtersPanel() { return $('div[data-test="filters"]'); }       
-  get filtersToggle() { return $('a[data-test="filters"]'); }        
-  get searchInput()  { return $('[data-test="search-query"]'); }     
-  get searchSubmit() { return $('[data-test="search-submit"]'); }    
-  get productCards() { return $$('a[data-test^="product-"]'); }      
+  get filtersPanel() {
+    return $('div[data-test="filters"]');
+  }
+  get filtersToggle() {
+    return $('a[data-test="filters"]');
+  }
+  get searchInput() {
+    return $('[data-test="search-query"]');
+  }
+  get searchSubmit() {
+    return $('[data-test="search-submit"]');
+  }
+  get productCards() {
+    return $$('a[data-test^="product-"]');
+  }
 
   async open() {
-    await super.open('/');
+    await super.open("/");
+    await this.waitForDomReady();
     await this.ensureFiltersVisible();
   }
 
@@ -23,47 +34,62 @@ class CatalogPage extends BasePage {
     }
   }
 
-async searchByName(name) {
-  const q = await $('[data-test="search-query"]');
-  await q.waitForDisplayed({ timeout: 10000 });
-  await q.clearValue();
-  await q.setValue(name);
-  await $('[data-test="search-submit"]').click();
+  async searchByName(name) {
+    const searchField = await $('[data-test="search-query"]');
+    await searchField.waitForDisplayed({ timeout: 10000 });
+    await searchField.clearValue();
+    await searchField.setValue(name);
+    await $('[data-test="search-submit"]').click();
 
-  // waiting for at least one card to appear
-  await browser.waitUntil(
-    async () => (await $$('a[data-test^="product-"], div[data-test^="product-"]')).length > 0,
-    { timeout: 10000, timeoutMsg: 'No products appeared after search' }
-  );
-}
-
-async openProductByName(name) {
-  // waiting for downloading
-  await browser.pause(200);
-
-  const cards = await $$('a[data-test^="product-"], div[data-test^="product-"]');
-
-  if (cards.length === 0) {
-    throw new Error('No product cards found after search');
+    // waiting for at least one card to appear
+    await browser.waitUntil(
+      async () =>
+        (
+          await $$('a[data-test^="product-"], div[data-test^="product-"]')
+        ).length > 0,
+      { timeout: 10000, timeoutMsg: "No products appeared after search" }
+    );
   }
 
-  // trying to find an exact match by name
-  for (const card of cards) {
-    const titleEl = await card.$('[data-test="product-name"]');
-    if (await titleEl.isExisting()) {
-      const txt = (await titleEl.getText()).trim();
-      if (txt.toLowerCase() === name.toLowerCase()) {
-        await card.click();
-        await $('[data-test="product-name"]').waitForDisplayed({ timeout: 10000 });
-        return;
+  async openProductByName(name) {
+    await browser.waitUntil(
+      async () =>
+        (
+          await $$('a[data-test^="product-"], div[data-test^="product-"]')
+        ).length > 0,
+      {
+        timeout: 10000,
+        interval: 150,
+        timeoutMsg: "Product cards did not render",
+      }
+    );
+
+    const cards = await $$(
+      'a[data-test^="product-"], div[data-test^="product-"]'
+    );
+    if (cards.length === 0) {
+      throw new Error("No product cards found after search");
+    }
+
+    for (const card of cards) {
+      const titleEl = await card.$('[data-test="product-name"]');
+      if (await titleEl.isExisting()) {
+        const titleText = (await titleEl.getText()).trim();
+        if (titleText.toLowerCase() === name.toLowerCase()) {
+          await card.waitForClickable({ timeout: 10000 });
+          await card.click();
+          await $('[data-test="product-name"]').waitForDisplayed({
+            timeout: 10000,
+          });
+          return;
+        }
       }
     }
+
+    await cards[0].waitForClickable({ timeout: 10000 });
+    await cards[0].click();
+    await $('[data-test="product-name"]').waitForDisplayed({ timeout: 10000 });
   }
-
-  await cards[0].click();
-  await $('[data-test="product-name"]').waitForDisplayed({ timeout: 10000 });
-}
-
 }
 
 module.exports = new CatalogPage();

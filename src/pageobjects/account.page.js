@@ -14,6 +14,7 @@ class AccountPage extends BasePage {
     }, { timeout: 15000, timeoutMsg: 'Account area not visible' });
   }
 }
+
 module.exports = new AccountPage();
 
 
