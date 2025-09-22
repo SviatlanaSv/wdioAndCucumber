@@ -6,8 +6,7 @@
     "test:all": "cross-env HEADLESS=true wdio run ./wdio.conf.js",
     "test:firefox": "cross-env HEADLESS=true wdio run ./wdio.conf.js -- firefox",
     "test:chrome": "cross-env HEADLESS=true wdio run ./wdio.conf.js -- chrome",
-    "test:edge": "cross-env HEADLESS=true wdio run ./wdio.conf.js -- edge",
-    
+    "test:edge": "cross-env HEADLESS=true wdio run ./wdio.conf.js -- edge"
   },
   "keywords": [],
   "author": "",
