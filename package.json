@@ -4,9 +4,12 @@
   "main": "index.js",
   "scripts": {
     "test:all": "cross-env HEADLESS=true wdio run ./wdio.conf.js",
-    "test:firefox": "cross-env HEADLESS=true wdio run ./wdio.conf.js -- firefox",
-    "test:chrome": "cross-env HEADLESS=true wdio run ./wdio.conf.js -- chrome",
-    "test:edge": "cross-env HEADLESS=true wdio run ./wdio.conf.js -- edge"
+    "test:firefox": "cross-env HEADLESS=true wdio run ./wdio.conf.js firefox",
+    "test:chrome": "cross-env HEADLESS=true wdio run ./wdio.conf.js chrome",
+    "test:edge": "cross-env HEADLESS=true wdio run ./wdio.conf.js edge",
+    "test:chai:chrome": "cross-env HEADLESS=true wdio run ./wdio.chai.conf.js chrome",
+    "test:chai:edge": "cross-env HEADLESS=true wdio run ./wdio.chai.conf.js edge",
+    "test:chai:firefox": "cross-env HEADLESS=true wdio run ./wdio.chai.conf.js firefox"
   },
   "keywords": [],
   "author": "",

@@ -74,7 +74,7 @@ exports.config = {
     //
     specFileRetries: 2,
     specFileRetriesDelay: 1,
-    specFileRetriesDeferred: true,
+    specFileRetriesDeferred: false,
 
     capabilities: only
         ? allCaps.filter(c => (only === 'edge' ? 'microsoftedge' : only) === c.browserName.toLowerCase())
