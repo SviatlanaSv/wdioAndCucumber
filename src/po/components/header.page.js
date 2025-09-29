@@ -1,4 +1,3 @@
-// src/pageobjects/header.page.js
 class HeaderPage {
   get languageBtn ()     { return $('[data-test="language-select"]'); }
   get activeLangText ()  { return $('#language, [data-test="language-select"]'); }

@@ -1,9 +1,9 @@
 require('dotenv').config();
 const { Given, When, Then } = require('@wdio/cucumber-framework');
-const Login    = require('../pageobjects/login.page');
-const Register = require('../pageobjects/register.page');
-const Account  = require('../pageobjects/account.page');
-const BasePage = require('../pageobjects/base.page');
+const Login    = require('../../po/pages/login.page');
+const Register = require('../../po/pages/register.page');
+const Account  = require('../../po/pages/account.page');
+const BasePage = require('../../po/pages/base.page');
 const basePage = new BasePage();
 
 // main context 

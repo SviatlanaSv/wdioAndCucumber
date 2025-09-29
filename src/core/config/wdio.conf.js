@@ -43,7 +43,7 @@ exports.config = {
     // specs: [
     //     './src/features/**/*.feature'
     // ],
-    specs: ['./src/features/**/*.feature'], //./src/features/**/*.feature
+    specs: ['../../test/features/**/*.feature'], //./src/features/**/*.feature
     // './src/features/add-to-basket.feature'
     // Patterns to exclude.
     exclude: [
@@ -157,7 +157,7 @@ exports.config = {
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
         // <string[]> (file/dir) require files before executing features
-        require: ['./src/step-definitions/**/*.js'], 
+        require: ['./src/test/step-definitions/**/*.js'], //['./src/step-definitions/**/*.js']
         // <boolean> show full backtrace for errors
         backtrace: false,
         // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)

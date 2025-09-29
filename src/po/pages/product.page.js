@@ -1,9 +1,9 @@
 const BasePage = require('./base.page');
 
 class ProductPage extends BasePage {
-  get name()            { return $('[data-test="product-name"]'); }      
-  get addToFavorites()  { return $('[data-test="add-to-favorites"]'); }  
+     
   get title () { return $('[data-test="product-name"]'); }
+  get addToFavorites()  { return $('[data-test="add-to-favorites"]'); }  
   get image () { return $('figure img.figure-img, .figure img.figure-img'); }
   get description () { return $('[data-test="product-description"]'); }
   get unitPrice () { return $('[data-test="unit-price"]'); }
