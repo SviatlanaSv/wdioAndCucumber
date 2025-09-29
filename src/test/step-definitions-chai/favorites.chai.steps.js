@@ -1,8 +1,8 @@
 const { Given, When, Then } = require("@wdio/cucumber-framework");
-const { loginAsCustomer } = require("../support/authSession");
-const CatalogPage = require("../pageobjects/catalog.page");
-const ProductPage = require("../pageobjects/product.page");
-const FavoritesPage = require("../pageobjects/favorites.page");
+const { loginAsCustomer } = require("../../core/support/authSession");
+const CatalogPage = require("../../po/pages/catalog.page");
+const ProductPage = require("../../po/pages/product.page");
+const FavoritesPage = require("../../po/pages/favorites.page");
 
 Given("the user is signed in", async () => {
   await loginAsCustomer();
