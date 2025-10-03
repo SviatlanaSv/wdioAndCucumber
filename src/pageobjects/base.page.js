@@ -6,6 +6,7 @@ class BasePage {
       const p = path.startsWith('/') ? path : `/${path}`;
       await browser.url(p);
     }
+    await this.waitForDomReady();
   }
   async waitForDomReady (timeout = 10000) {
     await browser.waitUntil(

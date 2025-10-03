@@ -10,10 +10,10 @@ class ProductPage extends BasePage {
   get offerPrice () { return $('[data-test="offer-price"]'); }  
 
   async addCurrentToFavorites() {
-    const btn = await this.addToFavorites;
-    await btn.waitForClickable({ timeout: 10000 });
-    await btn.click();
-    await browser.pause(300);
+    const favoriteButton = await this.addToFavorites;
+    await this.waitForDomReady();
+    await favoriteButton.waitForClickable({ timeout: 10000 });
+    await favoriteButton.click();
   }
 
     async waitOpened () {

@@ -18,6 +18,7 @@ class RegisterPage extends BasePage {
   get error()      { return $('[data-test="register-error"]'); }
 
   async waitOpened () {
+    await this.waitForDomReady();
     await this.form.waitForExist({ timeout: 10000 });
   }
   async fillSimpleValidData ({ first, last, birth, addr, contact, creds }) {
@@ -36,5 +37,61 @@ class RegisterPage extends BasePage {
   async submitForm () {
     await this.submit.click();
   }
+
+  // сгенерировать уникальные учётные данные
+generateCredentials() {
+  const stamp = Date.now();
+  return {
+    email: `qa_${stamp}@mailinator.com`,
+    password: `Pa$$w0rd${stamp.toString().slice(-3)}`
+  };
+}
+
+// выполнить регистрацию валидного пользователя (данные можно переопределить через аргументы)
+async registerValidUser({
+  first = 'Anna',
+  last  = 'Test',
+  birth = '1994-05-17',
+  addr  = { street: '123 Test St', postal: '12345', city: 'Berlin', state: 'BE' },
+  contact = { phone: '1234567890' },
+  creds = this.generateCredentials()
+} = {}) {
+  await this.fillSimpleValidData({ first, last, birth, addr, contact, creds });
+  await this.submitForm();
+  return { creds, profile: { first, last, birth, addr, contact } };
+}
+
+// дождаться завершения процесса регистрации (редирект / страница аккаунта / допустимая ошибка)
+async waitRegistrationFinished(timeout = 15000) {
+  await browser.waitUntil(async () => {
+    const url = await browser.getUrl();
+    if (url.includes('/auth/login') || url.includes('/my-account')) return true;
+    try {
+      if (this.error && await this.error.isExisting()) return true;
+    } catch (_) {}
+    return false;
+  }, { timeout, timeoutMsg: 'Registration flow did not finish' });
+}
+
+// вернуть набор дефолтных валидных данных регистрации
+getDefaultRegistrationData() {
+  return {
+    first:  'Anna',
+    last:   'Test',
+    birth:  '1994-05-17',
+    addr:   { street: '123 Test St', postal: '12345', city: 'Berlin', state: 'BE' },
+    contact:{ phone: '1234567890' },
+    creds:  this.generateCredentials(),
+  };
+}
+
+// заполнить форму дефолтными валидными данными (без сабмита)
+async fillDefaultValidData() {
+  const data = this.getDefaultRegistrationData();
+  await this.fillSimpleValidData(data);
+  return data; // вернём, чтобы шаг мог сохранить creds в ctx
+}
+
+
 }
 module.exports = new RegisterPage();
