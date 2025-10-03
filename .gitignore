@@ -12,6 +12,7 @@ allure-results/
 allure-report/
 reports/
 report/
+src/core/reports/
 .logs/
 tmp/
 errorShots/
