@@ -26,6 +26,10 @@
     "dotenv": "^17.2.2",
     "geckodriver": "^6.0.1",
     "mocha": "^11.7.2",
+    "wdio-html-nice-reporter": "^8.1.7",
     "webdriverio": "^9.19.2"
+  },
+  "dependencies": {
+    "wdio-html-reporter": "^1.0.2"
   }
 }
