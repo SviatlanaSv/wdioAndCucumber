@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test:all": "cross-env HEADLESS=true wdio run ./wdio.conf.js",
-    "test:firefox": "cross-env HEADLESS=true wdio run ./wdio.conf.js firefox",
-    "test:chrome": "cross-env HEADLESS=true wdio run ./wdio.conf.js chrome",
-    "test:edge": "cross-env HEADLESS=true wdio run ./wdio.conf.js edge",
-    "test:chai:chrome": "cross-env HEADLESS=true wdio run ./wdio.chai.conf.js chrome",
-    "test:chai:edge": "cross-env HEADLESS=true wdio run ./wdio.chai.conf.js edge",
-    "test:chai:firefox": "cross-env HEADLESS=true wdio run ./wdio.chai.conf.js firefox"
+    "test:all": "cross-env HEADLESS=true wdio run ./src/core/config/wdio.conf.js",
+    "test:firefox": "cross-env HEADLESS=true wdio run ./src/core/config/wdio.conf.js firefox",
+    "test:chrome": "cross-env HEADLESS=true wdio run ./src/core/config/wdio.conf.js chrome",
+    "test:edge": "cross-env HEADLESS=true wdio run ./src/core/config/wdio.conf.js edge",
+    "test:chai:chrome": "cross-env HEADLESS=true wdio run ./src/core/config/wdio.chai.conf.js chrome",
+    "test:chai:edge": "cross-env HEADLESS=true wdio run ./src/core/config/wdio.chai.conf.js edge",
+    "test:chai:firefox": "cross-env HEADLESS=true wdio run ./src/core/config/wdio.chai.conf.js firefox"
   },
   "keywords": [],
   "author": "",

@@ -17,13 +17,12 @@ class LoginPage extends BasePage {
     await this.register.click();
   }
 
-  // открыть форму регистрации с логина (одним вызовом)
+ 
 async openRegister() {
   await this.open();
   await this.goToRegister();
 }
 
-// единое действие "ввести и войти"
 async signIn(email, password) {
   await this.email.waitForDisplayed({ timeout: 10000 });
   await this.email.setValue(email);

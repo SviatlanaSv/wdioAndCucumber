@@ -1,4 +1,3 @@
-// wdio.chai.conf.js
 const base = require('./wdio.conf').config;
 
 exports.config = {
@@ -9,8 +8,8 @@ exports.config = {
   cucumberOpts: {
     ...base.cucumberOpts,
     require: [
-      './src/support/chai-setup.js',
-      './src/step-definitions-chai/**/*.js'
+      './src/core/config/chai-setup.js',
+      './src/test/step-definitions-chai/**/*.js'
     ],
   },
 };

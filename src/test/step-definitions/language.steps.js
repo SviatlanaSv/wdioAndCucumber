@@ -1,9 +1,9 @@
 // src/step-definitions/language.steps.js
 const assert = require('assert');
 const { Given, When, Then } = require('@wdio/cucumber-framework');
-const Header = require('../pageobjects/header.page');
-const Nav    = require('../pageobjects/nav.page');
-const BasePage = require('../pageobjects/base.page');
+const Header   = require('../../po/components/header.page');
+const Nav      = require('../../po/components/nav.page');
+const BasePage = require('../../po/pages/base.page');
 const basePage = new BasePage();
 
 const TOKENS = {

@@ -1,3 +1,5 @@
+const { domReady } = require('../../core/support/waits');
+
 class FavoritesPage {
   get pageTitle()     { return $('[data-test="page-title"]'); }
   get favoriteCards() { return $$('div[data-test^="favorite-"], a[data-test^="favorite-"]'); }
@@ -23,10 +25,7 @@ class FavoritesPage {
       await this.open();
     }
 
-    await browser.waitUntil(
-      async () => (await browser.execute(() => document.readyState)) === 'complete',
-      { timeout: 5000, interval: 100, timeoutMsg: 'Favorites page DOM did not become ready' }
-    );
+    await domReady(5000);
 
     const cards = await this.favoriteCards;
 

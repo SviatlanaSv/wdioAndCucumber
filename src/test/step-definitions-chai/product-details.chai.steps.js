@@ -1,6 +1,6 @@
 const { Given, When, Then } = require('@wdio/cucumber-framework');
-const OverviewPage = require('../pageobjects/overview.page');
-const ProductPage  = require('../pageobjects/product.page');
+const OverviewPage = require('../../po/pages/overview.page');
+const ProductPage  = require('../../po/pages/product.page');
 
 Given('the user is browsing products', async () => {
   await OverviewPage.open();
