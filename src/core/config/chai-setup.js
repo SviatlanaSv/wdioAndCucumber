@@ -1,4 +1,3 @@
-// src/support/chai.setup.js
 const chai = require('chai');
 
 // globally accessible

@@ -1,4 +1,3 @@
-// src/step-definitions/language.steps.js
 const assert = require('assert');
 const { Given, When, Then } = require('@wdio/cucumber-framework');
 const Header = require('../../po/components/header.page');

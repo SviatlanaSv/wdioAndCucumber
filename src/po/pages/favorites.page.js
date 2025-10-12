@@ -62,7 +62,7 @@ class FavoritesPage {
       const cards = await this.favoriteCards;
       if (!cards.length) break;
 
-      let deleteButton = await this.cardDelete(cards[0]);
+      const deleteButton = await this.cardDelete(cards[0]);
       if (!(await deleteButton.isExisting())) break;
 
       const beforeCount = (await this.favoriteCards).length;

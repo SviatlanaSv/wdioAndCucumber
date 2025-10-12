@@ -68,7 +68,6 @@ class RegisterPage extends BasePage {
     await this.submit.click();
   }
 
-  // сгенерировать уникальные учётные данные
   generateCredentials() {
     const stamp = Date.now();
     return {
@@ -77,7 +76,6 @@ class RegisterPage extends BasePage {
     };
   }
 
-  // выполнить регистрацию валидного пользователя (данные можно переопределить через аргументы)
   async registerValidUser({
     first = 'Anna',
     last = 'Test',
@@ -91,7 +89,6 @@ class RegisterPage extends BasePage {
     return { creds, profile: { first, last, birth, addr, contact } };
   }
 
-  // дождаться завершения процесса регистрации (редирект / страница аккаунта / допустимая ошибка)
   async waitRegistrationFinished(timeout = 15000) {
     await browser.waitUntil(
       async () => {
@@ -99,14 +96,15 @@ class RegisterPage extends BasePage {
         if (url.includes('/auth/login') || url.includes('/my-account')) return true;
         try {
           if (this.error && (await this.error.isExisting())) return true;
-        } catch (_) {}
+        } catch (_) {
+          /* error element not present */
+        }
         return false;
       },
       { timeout, timeoutMsg: 'Registration flow did not finish' }
     );
   }
 
-  // вернуть набор дефолтных валидных данных регистрации
   getDefaultRegistrationData() {
     return {
       first: 'Anna',
@@ -118,11 +116,10 @@ class RegisterPage extends BasePage {
     };
   }
 
-  // заполнить форму дефолтными валидными данными (без сабмита)
   async fillDefaultValidData() {
     const data = this.getDefaultRegistrationData();
     await this.fillSimpleValidData(data);
-    return data; // вернём, чтобы шаг мог сохранить creds в ctx
+    return data;
   }
 }
 module.exports = new RegisterPage();
