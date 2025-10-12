@@ -1,6 +1,6 @@
 const { Given, When, Then } = require('@wdio/cucumber-framework');
 const Header = require('../../po/components/header.page');
-const Nav    = require('../../po/components/nav.page');
+const Nav = require('../../po/components/nav.page');
 const BasePage = require('../../po/pages/base.page');
 const basePage = new BasePage();
 
@@ -10,7 +10,7 @@ const TOKENS = {
   ES: ['Buscar', 'Filtros', 'Precio', 'Ordenar', 'Por categoría'],
   FR: ['Rechercher', 'Filtres', 'Prix', 'Trier', 'Par catégorie'],
   NL: ['Zoeken', 'Filters', 'Prijs', 'Sorteren', 'Per categorie'],
-  TR: ['Ara', 'Filtreler', 'Fiyat', 'Sırala', 'Kategoriye göre']
+  TR: ['Ara', 'Filtreler', 'Fiyat', 'Sırala', 'Kategoriye göre'],
 };
 
 Given('multiple site languages are available', async () => {
@@ -36,15 +36,18 @@ Then('website content appears in chosen {string}', async (lang) => {
 
   const variants = TOKENS[code] || [];
   const body = (await $('body').getText()).toLowerCase();
-  const found = variants.some(v => body.includes(v.toLowerCase()));
-  assert.isTrue(found, `Did not find tokens for ${code}`);        // assert
+  const found = variants.some((v) => body.includes(v.toLowerCase()));
+  assert.isTrue(found, `Did not find tokens for ${code}`); // assert
 
   expect((await Header.getActiveButtonText()).toUpperCase()).to.include(code); // expect
 });
 
-Then('the selected language persists when the user navigates to a product details page', async () => {
-  const expected = (await Header.getActiveButtonText()).trim().toUpperCase();
-  await Nav.openFirstProduct();
-  const actual = (await Header.getActiveButtonText()).trim().toUpperCase();
-  assert.strictEqual(actual, expected, 'Language changed after navigation'); // assert
-});
+Then(
+  'the selected language persists when the user navigates to a product details page',
+  async () => {
+    const expected = (await Header.getActiveButtonText()).trim().toUpperCase();
+    await Nav.openFirstProduct();
+    const actual = (await Header.getActiveButtonText()).trim().toUpperCase();
+    assert.strictEqual(actual, expected, 'Language changed after navigation'); // assert
+  }
+);

@@ -1,28 +1,28 @@
 const { ReportAggregator } = require('wdio-html-nice-reporter');
 let reportAggregator;
 
-require("dotenv").config();
-const HEADLESS = process.env.HEADLESS === "true";
+require('dotenv').config();
+const HEADLESS = process.env.HEADLESS === 'true';
 
 const cliBrowser = process.argv
   .map((a) => a.toLowerCase())
-  .find((a) => ["chrome", "firefox", "edge"].includes(a));
+  .find((a) => ['chrome', 'firefox', 'edge'].includes(a));
 const only = cliBrowser || null;
 
 const allCaps = [
   {
-    browserName: "chrome",
-    "goog:chromeOptions": { args: HEADLESS ? ["--headless=new"] : [] },
+    browserName: 'chrome',
+    'goog:chromeOptions': { args: HEADLESS ? ['--headless=new'] : [] },
   },
 
   {
-    browserName: "MicrosoftEdge",
-    "ms:edgeOptions": { args: HEADLESS ? ["--headless=new"] : [] },
+    browserName: 'MicrosoftEdge',
+    'ms:edgeOptions': { args: HEADLESS ? ['--headless=new'] : [] },
   },
 
   {
-    browserName: "firefox",
-    "moz:firefoxOptions": { args: HEADLESS ? ["-headless"] : [] },
+    browserName: 'firefox',
+    'moz:firefoxOptions': { args: HEADLESS ? ['-headless'] : [] },
   },
 ];
 
@@ -32,7 +32,7 @@ exports.config = {
   // Runner Configuration
   // ====================
   // WebdriverIO supports running e2e tests as well as unit and component tests.
-  runner: "local",
+  runner: 'local',
   //
   // ==================
   // Specify Test Files
@@ -51,7 +51,7 @@ exports.config = {
   // specs: [
   //     './src/features/**/*.feature'
   // ],
-  specs: ["../../test/features/**/*.feature"], //./src/features/**/*.feature
+  specs: ['../../test/features/**/*.feature'], //./src/features/**/*.feature
   // './src/features/add-to-basket.feature'
   // Patterns to exclude.
   exclude: [
@@ -86,9 +86,7 @@ exports.config = {
 
   capabilities: only
     ? allCaps.filter(
-        (c) =>
-          (only === "edge" ? "microsoftedge" : only) ===
-          c.browserName.toLowerCase()
+        (c) => (only === 'edge' ? 'microsoftedge' : only) === c.browserName.toLowerCase()
       )
     : allCaps,
 
@@ -101,7 +99,7 @@ exports.config = {
   // Define all options that are relevant for the WebdriverIO instance here
   //
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: "error",
+  logLevel: 'error',
   //
   // Set specific log levels per logger
   // loggers:
@@ -125,7 +123,7 @@ exports.config = {
   // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
-  baseUrl: "https://practicesoftwaretesting.com",
+  baseUrl: 'https://practicesoftwaretesting.com',
   //
   // Default timeout for all waitFor* commands.
   waitforTimeout: 10000,
@@ -149,7 +147,7 @@ exports.config = {
   //
   // Make sure you have the wdio adapter package for the specific framework installed
   // before running any tests.
-  framework: "cucumber",
+  framework: 'cucumber',
 
   //
   // The number of times to retry the entire specfile when it fails as a whole
@@ -164,39 +162,42 @@ exports.config = {
   // Test reporter for stdout.
   // The only one supported by default is 'dot'
   // see also: https://webdriver.io/docs/dot-reporter
-  
-reporters: [
-  'spec',
-  ['html-nice', {
-    outputDir: './src/core/reports/html-reports',
-    filename: 'report.html',
-    reportTitle: 'Test Report Title',
-    linkScreenshots: true,
-    showInBrowser: true,
-    collapseTests: false,
-    useOnAfterCommandForScreenshot: false
-  }]
-],
 
-onPrepare: function (config, capabilities) {
-  reportAggregator = new ReportAggregator({
-    outputDir: './src/core/reports/html-reports', 
-    filename: 'master-report.html',
-    reportTitle: 'Master Report',
-    browserName: (capabilities?.[0]?.browserName) || 'browser',
-    collapseTests: true
-  });
-  reportAggregator.clean();
-},
+  reporters: [
+    'spec',
+    [
+      'html-nice',
+      {
+        outputDir: './src/core/reports/html-reports',
+        filename: 'report.html',
+        reportTitle: 'Test Report Title',
+        linkScreenshots: true,
+        showInBrowser: true,
+        collapseTests: false,
+        useOnAfterCommandForScreenshot: false,
+      },
+    ],
+  ],
 
-onComplete: async function () {
-  await reportAggregator.createReport(); 
-},
+  onPrepare: function (config, capabilities) {
+    reportAggregator = new ReportAggregator({
+      outputDir: './src/core/reports/html-reports',
+      filename: 'master-report.html',
+      reportTitle: 'Master Report',
+      browserName: capabilities?.[0]?.browserName || 'browser',
+      collapseTests: true,
+    });
+    reportAggregator.clean();
+  },
+
+  onComplete: async function () {
+    await reportAggregator.createReport();
+  },
 
   // If you are using Cucumber you need to specify the location of your step definitions.
   cucumberOpts: {
     // <string[]> (file/dir) require files before executing features
-    require: ["./src/test/step-definitions/**/*.js"], //['./src/step-definitions/**/*.js']
+    require: ['./src/test/step-definitions/**/*.js'], //['./src/step-definitions/**/*.js']
     // <boolean> show full backtrace for errors
     backtrace: false,
     // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
@@ -214,7 +215,7 @@ onComplete: async function () {
     // <boolean> fail if there are any undefined or pending steps
     strict: true,
     // <string> (expression) only execute the features or scenarios with tags matching the expression
-    tagExpression: "",
+    tagExpression: '',
     // <number> timeout for step definitions
     timeout: 60000,
     // <boolean> Enable this config to treat undefined definitions as warnings.

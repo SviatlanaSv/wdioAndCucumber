@@ -3,10 +3,9 @@ const assert = require('assert');
 
 const { loginAsCustomer } = require('../../core/support/authSession');
 
-const CatalogPage   = require('../../po/pages/catalog.page');
-const ProductPage   = require('../../po/pages/product.page');
+const CatalogPage = require('../../po/pages/catalog.page');
+const ProductPage = require('../../po/pages/product.page');
 const FavoritesPage = require('../../po/pages/favorites.page');
-
 
 Given('the user is signed in', async () => {
   await loginAsCustomer();
@@ -32,12 +31,11 @@ When('the user opens the favorites page', async () => {
 });
 
 Then('the favorites list includes {string}', async (name) => {
-  await browser.waitUntil(
-    async () => await FavoritesPage.hasProduct(name),
-    { timeout: 12000, interval: 300, timeoutMsg: `Expected to see "${name}" in favorites` }
-  );
+  await browser.waitUntil(async () => await FavoritesPage.hasProduct(name), {
+    timeout: 12000,
+    interval: 300,
+    timeoutMsg: `Expected to see "${name}" in favorites`,
+  });
   const has = await FavoritesPage.hasProduct(name);
   assert.strictEqual(has, true, `Expected to see "${name}" in favorites`);
 });
-
-
