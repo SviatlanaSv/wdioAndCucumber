@@ -7,7 +7,9 @@ async function loginAsCustomer(email = DEFAULT_EMAIL, password = DEFAULT_PASSWOR
   const emailInput = await $('[data-test="email"], input[type="email"]');
   await emailInput.waitForDisplayed({ timeout: 15000 });
 
-  const passwordInput = await $('[data-test="password"] input, [data-test="password"], input[type="password"]');
+  const passwordInput = await $(
+    '[data-test="password"] input, [data-test="password"], input[type="password"]'
+  );
   await passwordInput.waitForDisplayed({ timeout: 15000 });
 
   await emailInput.setValue(email);
@@ -18,7 +20,9 @@ async function loginAsCustomer(email = DEFAULT_EMAIL, password = DEFAULT_PASSWOR
   await browser.waitUntil(
     async () => {
       const url = await browser.getUrl();
-      const titleVisible = await $('[data-test="page-title"]').isDisplayed().catch(() => false);
+      const titleVisible = await $('[data-test="page-title"]')
+        .isDisplayed()
+        .catch(() => false);
       return url.includes('/account') || titleVisible;
     },
     { timeout: 15000, timeoutMsg: 'Login confirmation was not visible in time' }

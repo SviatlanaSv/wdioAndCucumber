@@ -1,6 +1,6 @@
 const { Given, When, Then } = require('@wdio/cucumber-framework');
 const OverviewPage = require('../../po/pages/overview.page');
-const ProductPage  = require('../../po/pages/product.page');
+const ProductPage = require('../../po/pages/product.page');
 
 Given('the user is browsing products', async () => {
   await OverviewPage.open();
@@ -13,7 +13,7 @@ When('the user opens the details for the product {string}', async (name) => {
 });
 
 Then('the product details view is displayed', async () => {
-  expect(await ProductPage.title.isDisplayed()).to.be.true;    // expect
+  expect(await ProductPage.title.isDisplayed()).to.be.true; // expect
 });
 
 Then('the product shows an image', async () => {
@@ -22,7 +22,7 @@ Then('the product shows an image', async () => {
 
 Then('the product shows a description', async () => {
   const text = await ProductPage.description.getText();
-  text.should.be.a('string').and.not.be.empty;       // should
+  text.should.be.a('string').and.not.be.empty; // should
 });
 
 Then('the product shows a price', async () => {

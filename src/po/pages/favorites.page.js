@@ -1,11 +1,19 @@
 const { domReady } = require('../../core/support/waits');
 
 class FavoritesPage {
-  get pageTitle()     { return $('[data-test="page-title"]'); }
-  get favoriteCards() { return $$('div[data-test^="favorite-"], a[data-test^="favorite-"]'); }
+  get pageTitle() {
+    return $('[data-test="page-title"]');
+  }
+  get favoriteCards() {
+    return $$('div[data-test^="favorite-"], a[data-test^="favorite-"]');
+  }
 
-  cardTitle(cardElement)  { return cardElement.$('[data-test="product-name"]'); }
-  cardDelete(cardElement) { return cardElement.$('[data-test="delete"]'); }
+  cardTitle(cardElement) {
+    return cardElement.$('[data-test="product-name"]');
+  }
+  cardDelete(cardElement) {
+    return cardElement.$('[data-test="delete"]');
+  }
 
   async open() {
     await browser.url('/account/favorites');
@@ -54,7 +62,7 @@ class FavoritesPage {
       const cards = await this.favoriteCards;
       if (!cards.length) break;
 
-      let deleteButton = await this.cardDelete(cards[0]);
+      const deleteButton = await this.cardDelete(cards[0]);
       if (!(await deleteButton.isExisting())) break;
 
       const beforeCount = (await this.favoriteCards).length;
@@ -62,14 +70,13 @@ class FavoritesPage {
       await deleteButton.waitForClickable({ timeout: 10000 });
       await deleteButton.click();
 
-      await browser.waitUntil(
-        async () => (await this.favoriteCards).length < beforeCount,
-        { timeout: 5000, interval: 100, timeoutMsg: 'Favorite item was not removed in time' }
-      );
+      await browser.waitUntil(async () => (await this.favoriteCards).length < beforeCount, {
+        timeout: 5000,
+        interval: 100,
+        timeoutMsg: 'Favorite item was not removed in time',
+      });
     }
   }
 }
 
 module.exports = new FavoritesPage();
-
-

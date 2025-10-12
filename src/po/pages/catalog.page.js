@@ -1,4 +1,4 @@
-const BasePage = require("./base.page");
+const BasePage = require('./base.page');
 
 class CatalogPage extends BasePage {
   get filtersPanel() {
@@ -18,7 +18,7 @@ class CatalogPage extends BasePage {
   }
 
   async open() {
-    await super.open("/");
+    await super.open('/');
     await this.waitForDomReady();
     await this.ensureFiltersVisible();
   }
@@ -43,32 +43,24 @@ class CatalogPage extends BasePage {
 
     // waiting for at least one card to appear
     await browser.waitUntil(
-      async () =>
-        (
-          await $$('a[data-test^="product-"], div[data-test^="product-"]')
-        ).length > 0,
-      { timeout: 10000, timeoutMsg: "No products appeared after search" }
+      async () => (await $$('a[data-test^="product-"], div[data-test^="product-"]')).length > 0,
+      { timeout: 10000, timeoutMsg: 'No products appeared after search' }
     );
   }
 
   async openProductByName(name) {
     await browser.waitUntil(
-      async () =>
-        (
-          await $$('a[data-test^="product-"], div[data-test^="product-"]')
-        ).length > 0,
+      async () => (await $$('a[data-test^="product-"], div[data-test^="product-"]')).length > 0,
       {
         timeout: 10000,
         interval: 150,
-        timeoutMsg: "Product cards did not render",
+        timeoutMsg: 'Product cards did not render',
       }
     );
 
-    const cards = await $$(
-      'a[data-test^="product-"], div[data-test^="product-"]'
-    );
+    const cards = await $$('a[data-test^="product-"], div[data-test^="product-"]');
     if (cards.length === 0) {
-      throw new Error("No product cards found after search");
+      throw new Error('No product cards found after search');
     }
 
     for (const card of cards) {

@@ -23,6 +23,12 @@ pipeline {
         bat 'npm ci'
       }
     }
+    stage('Linters') {
+      steps {
+        bat 'npm run format' 
+        bat 'npm run lint'  
+      }
+    }
     stage('Run UI tests (Chrome)') {
       steps {
         bat 'npm run test:chrome'

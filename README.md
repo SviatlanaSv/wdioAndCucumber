@@ -4,8 +4,8 @@ End-to-end tests for `https://practicesoftwaretesting.com` using **WebdriverIO v
 
 ## Requirements
 
-* Node.js (LTS recommended)
-* Chrome / Edge / Firefox installed
+- Node.js (LTS recommended)
+- Chrome / Edge / Firefox installed
 
 ## Install
 
@@ -43,4 +43,3 @@ src/
   support/                 # helpers, hooks
 wdio.conf.js               # WDIO + Cucumber config
 ```
-
